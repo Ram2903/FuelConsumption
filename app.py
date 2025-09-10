@@ -4,13 +4,13 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 # Load the trained model
-model = joblib.load('linear_regression_model.joblib')
+model = joblib.load('linear_regression_model (2).joblib')
 
 # Load the original data to fit the scaler and get column order
 # In a real application, you would save and load the scaler and column list
 # instead of reloading and reprocessing the data.
 try:
-    df_original = pd.read_csv("/content/FuelConsumption (1).csv")
+    df_original = pd.read_csv("FuelConsumption (1) (1).csv")
 except FileNotFoundError:
     st.error("Original data file not found. Please ensure 'FuelConsumption (1).csv' is in the correct directory.")
     st.stop()
