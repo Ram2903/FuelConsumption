@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 # Load the trained model
-model = joblib.load('linear_regression_model.joblib')
+model = joblib.load('linear_regression_model .joblib')
 
 # Load the original data to fit the scaler and get column order
 # In a real application, you would save and load the scaler and column list
