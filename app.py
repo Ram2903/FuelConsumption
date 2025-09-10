@@ -4,13 +4,13 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 # Load the trained model
-model = joblib.load('linear_regression_model (2).joblib')
+model = joblib.load('linear_regression_model.joblib')
 
 # Load the original data to fit the scaler and get column order
 # In a real application, you would save and load the scaler and column list
 # instead of reloading and reprocessing the data.
 try:
-    df_original = pd.read_csv("FuelConsumption (1) (1).csv")
+    df_original = pd.read_csv("/content/FuelConsumption (1).csv")
 except FileNotFoundError:
     st.error("Original data file not found. Please ensure 'FuelConsumption (1).csv' is in the correct directory.")
     st.stop()
@@ -27,7 +27,8 @@ df_original['FUEL_EFFICIENCY'] = 1 / df_original['FUEL CONSUMPTION']
 
 # Identify numerical and categorical columns
 # Ensure 'COEMISSIONS' is correctly referenced without the trailing space
-numerical_cols = ['Year', 'ENGINE SIZE', 'CYLINDERS', 'FUEL CONSUMPTION', 'COEMISSIONS', 'FUEL_EFFICIENCY']
+# Remove 'COEMISSIONS' from numerical_cols as it's the target variable
+numerical_cols = ['Year', 'ENGINE SIZE', 'CYLINDERS', 'FUEL CONSUMPTION', 'FUEL_EFFICIENCY']
 categorical_cols = df_original.select_dtypes(include='object').columns
 
 # Apply one-hot encoding
@@ -50,7 +51,8 @@ st.title('CO2 Emission Prediction')
 st.write("Enter the vehicle features to predict CO2 emissions:")
 
 # Add input widgets for features - ensure these match the original data's relevant columns
-year = st.slider('Year', int(df_original['Year'].min()), int(df_original['Year'].max()), int(df_original['Year'].mean()))
+# Corrected min/max values for Year slider
+year = st.slider('Year', 2000, 2025, int(df_original['Year'].mean()))
 make = st.selectbox('Make', df_original['MAKE'].unique())
 # Filter models based on selected make
 model_name = st.selectbox('Model', df_original[df_original['MAKE'] == make]['MODEL'].unique())
